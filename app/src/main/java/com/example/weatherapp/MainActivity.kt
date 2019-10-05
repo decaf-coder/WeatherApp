@@ -12,7 +12,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import org.json.JSONArray
 
-const val url= "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1851ccff45dd11fd0a134049b170f468"
+const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
+const val url2= "&APPID=1851ccff45dd11fd0a134049b170f468"
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,19 +21,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //button is ready to receive a string
+        //button is ready to receive a string     **still need to handle errors***
         buttonA.setOnClickListener{
-            //save whatever is entered by user **FOR LATER**
-            //var city = enterLocation.text
-            getInfo()
+            //save whatever is entered by user
+            var city = enterLocation.text
+            var urlString= url1 + city + url2
+            getInfo(urlString)
         }
     }
 
-     private fun getInfo() {
+     private fun getInfo(url: String ) {
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
-        val url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1851ccff45dd11fd0a134049b170f468"
+        //val url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1851ccff45dd11fd0a134049b170f468"
         val kelvin = 273.15
 
         // Request a string response from the provided URL.
