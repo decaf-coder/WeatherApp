@@ -12,7 +12,6 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import org.json.JSONArray
 
-//TEST
 
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
 const val url2= "&APPID=1851ccff45dd11fd0a134049b170f468"
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //button is ready to receive a string     **still need to handle errors***
+        //button is ready to receive a string
         buttonA.setOnClickListener{
             //save whatever is entered by user
             var city = enterLocation.text
