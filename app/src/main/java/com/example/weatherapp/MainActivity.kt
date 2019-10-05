@@ -31,8 +31,9 @@ class MainActivity : AppCompatActivity() {
      private fun getInfo() {
 
         // Instantiate the RequestQueue.
-      val queue = Volley.newRequestQueue(this)
-       val url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1851ccff45dd11fd0a134049b170f468"
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=1851ccff45dd11fd0a134049b170f468"
+        val kelvin = 273.15
 
         // Request a string response from the provided URL.
         val stringReqy = StringRequest(Request.Method.GET, url,
@@ -45,22 +46,26 @@ class MainActivity : AppCompatActivity() {
                 display.text=(name)
 
                 var main: JSONObject = JSONObject(response).getJSONObject("main")
-                display2.text= (main.getDouble("temp").toString())
+                var tempy= ((main.getInt("temp"))- kelvin)
+                var temper= (tempy.toInt()).toString() + "°C"
+                display2.text= (temper)
 
-                var temps= (main.getDouble("temp_min").toString()) + " hi " + (main.getDouble("temp_max".toString()))
+                var mintemp= (main.getDouble("temp_min") - kelvin).toInt().toString() + "°C"
+                var maxtemp= (main.getDouble("temp_max") - kelvin).toInt().toString() + "°C"
+                var temps= "Min." + mintemp + " Max. " + maxtemp
                 display3.text=(temps)
 
                 var arr= json.getJSONArray("weather")
                 var weather= arr.getJSONObject(0).getString("main")
                 display4.text=(weather)
-                var description= arr.getJSONObject(0).getString("description")
+                var description= arr.getJSONObject(0).getString("description").capitalize()
                 display5.text=(description)
 
-                var humid= main.getDouble("humidity").toString() + "Humidity"
+                var humid= main.getDouble("humidity").toInt().toString() + "%\nHumidity"
                 display6.text=(humid)
 
                 var clouds: JSONObject = JSONObject(response).getJSONObject("clouds")
-                var allclouds= clouds.getDouble("all").toString() + "Clouds"
+                var allclouds= clouds.getDouble("all").toInt().toString() + "%\nClouds"
                 display7.text=(allclouds)
 
             },
