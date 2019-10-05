@@ -12,6 +12,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import org.json.JSONArray
 
+//TEST
+
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
 const val url2= "&APPID=1851ccff45dd11fd0a134049b170f468"
 
