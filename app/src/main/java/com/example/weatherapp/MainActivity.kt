@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //gunna try and get the location now
+
         //button is ready to receive a string
         buttonA.setOnClickListener{
             //save whatever is entered by user
