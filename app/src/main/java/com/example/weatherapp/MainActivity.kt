@@ -3,14 +3,14 @@ package com.example.weatherapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
-import com.android.volley.RequestQueue
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.Response.Listener
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
-import org.json.JSONArray
+import android.widget.Toast
+import android.view.Gravity
 
 
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
@@ -22,14 +22,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //gunna try and get the location now
 
         //button is ready to receive a string
         buttonA.setOnClickListener{
             //save whatever is entered by user
+
             var city = enterLocation.text
-            var urlString= url1 + city + url2
-            getInfo(urlString)
+
+            //check if they entered anything
+            if (city.trim().isEmpty()){
+                val emptyToast = Toast.makeText(applicationContext,"You didn't enter anything :)",Toast.LENGTH_SHORT)
+                emptyToast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+                emptyToast.show()
+            }
+            else {
+                var urlString = url1 + city + url2
+                getInfo(urlString)
+            }
         }
     }
 
@@ -74,7 +83,11 @@ class MainActivity : AppCompatActivity() {
                 display7.text=(allclouds)
 
             },
-            Response.ErrorListener { display2.text = "That didn't work!" })
+            Response.ErrorListener {
+                val errorToast = Toast.makeText(applicationContext,"That city doesn't exist :)",Toast.LENGTH_SHORT)
+                errorToast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+                errorToast.show()
+            })
 
          // Add the request to the RequestQueue.
         queue.add(stringReqy)
