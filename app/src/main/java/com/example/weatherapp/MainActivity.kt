@@ -1,5 +1,6 @@
 package com.example.weatherapp
 
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
@@ -11,28 +12,49 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import android.widget.Toast
 import android.view.Gravity
+import android.util.Log
+import com.google.android.gms.location.*
+import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
+import com.google.android.gms.location.FusedLocationProviderClient
+import android.location.LocationListener
+import android.location.LocationManager
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.LocationServices
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
+
+
+
 
 
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
 const val url2= "&APPID=1851ccff45dd11fd0a134049b170f468"
+private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getLocation()
 
+        buttonA.setOnClickListener {
 
-        //button is ready to receive a string
-        buttonA.setOnClickListener{
-            //save whatever is entered by user
-
+        //save whatever is entered by user
             var city = enterLocation.text
-
             //check if they entered anything
-            if (city.trim().isEmpty()){
-                val emptyToast = Toast.makeText(applicationContext,"You didn't enter anything :)",Toast.LENGTH_SHORT)
-                emptyToast.setGravity(Gravity.CENTER_VERTICAL,0,0)
+            if (city.trim().isEmpty()) {
+                val emptyToast = Toast.makeText(
+                    applicationContext,
+                    "You didn't enter anything :)",
+                    Toast.LENGTH_SHORT
+                )
+                emptyToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
                 emptyToast.show()
             }
             else {
@@ -40,7 +62,27 @@ class MainActivity : AppCompatActivity() {
                 getInfo(urlString)
             }
         }
+
+
+
     }
+
+    private fun getLocation(){
+        fusedLocationClient = getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                // Try printing these two variables in your Toast
+                var longitude = location.longitude
+                var latitude = location.latitude
+
+                val url3= "https://api.openweathermap.org/data/2.5/weather?lat="
+                var urlString = url3 + latitude + "&lon="+ longitude + url2
+                getInfo(urlString)
+
+                //buttonA.text= latitude.toString() + "&" + longitude.toString()
+            }
+    }
+
 
      private fun getInfo(url: String ) {
 
