@@ -20,12 +20,14 @@
         android:alpha="0.5"
         android:background="#FFFFFF"
         android:textColor="#020202"
+        android:textColorHighlight="#FD0629D6"
+        android:textColorLink="#FD0629D6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/enterLocation"
@@ -145,5 +147,23 @@
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/buttonA"
         app:layout_constraintVertical_bias="0.154" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:text="ToggleButton"
+        android:textColorHighlight="#F8110A0A"
+        android:textColorLink="#FA050404"
+        android:textCursorDrawable="@color/common_google_signin_btn_text_dark_focused"
+        android:textOff="Celcius"
+        android:textOn="Fahrenheit"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toEndOf="@+id/display2"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

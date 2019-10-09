@@ -34,6 +34,9 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
 const val url2= "&APPID=1851ccff45dd11fd0a134049b170f468"
 private lateinit var fusedLocationClient: FusedLocationProviderClient
+var tempy= 0.0
+var mintemp= 0.0
+var maxtemp=0.0
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +45,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         getLocation()
+
+        toggleButton.setOnClickListener {
+            if (toggleButton.isChecked) {
+                tempy= (tempy *9/5) + 32
+                var temper= (tempy.toInt()).toString() + "°F"
+                display2.text= temper
+
+                mintemp= (mintemp *9/5) + 32
+                var mintempS= mintemp.toInt().toString() + "°F"
+                maxtemp= (maxtemp *9/5) + 32
+                var maxtempS= mintemp.toInt().toString() + "°F"
+
+                var temps= "Min." + mintempS + " Max. " + maxtempS
+                display3.text=(temps)
+            }
+
+            if(!(toggleButton.isChecked)){
+                tempy= (tempy-32) * 5/9
+                var temper= (tempy.toInt()).toString() + "°C"
+                display2.text= temper
+
+                mintemp= (mintemp-32) * 5/9
+                var mintempS= mintemp.toInt().toString() + "°C"
+                maxtemp= (maxtemp-32) * 5/9
+                var maxtempS= mintemp.toInt().toString() + "°C"
+
+                var temps= "Min." + mintempS + " Max. " + maxtempS
+                display3.text=(temps)
+            }
+         }
 
         buttonA.setOnClickListener {
 
@@ -84,7 +117,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-     private fun getInfo(url: String ) {
+      fun getInfo(url: String ) {
 
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
@@ -102,13 +135,15 @@ class MainActivity : AppCompatActivity() {
                 display.text=(name)
 
                 var main: JSONObject = JSONObject(response).getJSONObject("main")
-                var tempy= ((main.getInt("temp"))- kelvin)
+                 tempy= ((main.getInt("temp"))- kelvin) //convert to celcius automatically at first
                 var temper= (tempy.toInt()).toString() + "°C"
                 display2.text= (temper)
 
-                var mintemp= (main.getDouble("temp_min") - kelvin).toInt().toString() + "°C"
-                var maxtemp= (main.getDouble("temp_max") - kelvin).toInt().toString() + "°C"
-                var temps= "Min." + mintemp + " Max. " + maxtemp
+                mintemp= (main.getDouble("temp_min") - kelvin)
+                var mintempS= mintemp.toInt().toString() + "°C"
+                maxtemp= (main.getDouble("temp_max") - kelvin)
+                var maxtempS= maxtemp.toInt().toString() + "°C"
+                var temps= "Min." + mintempS + " Max. " + maxtempS
                 display3.text=(temps)
 
                 var arr= json.getJSONArray("weather")
