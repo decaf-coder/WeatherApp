@@ -23,12 +23,7 @@ import com.google.android.gms.location.LocationServices
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
-
-
-
+import android.view.View
 
 
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
@@ -78,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonA.setOnClickListener {
 
-        //save whatever is entered by user
+            //save whatever is entered by user
             var city = enterLocation.text
             //check if they entered anything
             if (city.trim().isEmpty()) {
@@ -112,6 +107,7 @@ class MainActivity : AppCompatActivity() {
                 var urlString = url3 + latitude + "&lon="+ longitude + url2
                 getInfo(urlString)
 
+                toggleButton.visibility= View.VISIBLE
                 //buttonA.text= latitude.toString() + "&" + longitude.toString()
             }
     }
@@ -158,6 +154,8 @@ class MainActivity : AppCompatActivity() {
                 var clouds: JSONObject = JSONObject(response).getJSONObject("clouds")
                 var allclouds= clouds.getDouble("all").toInt().toString() + "%\nClouds"
                 display7.text=(allclouds)
+
+                toggleButton.visibility= View.VISIBLE
 
             },
             Response.ErrorListener {
