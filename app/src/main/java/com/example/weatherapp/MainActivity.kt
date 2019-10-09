@@ -24,6 +24,10 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 
 const val url1= "https://api.openweathermap.org/data/2.5/weather?q="
@@ -39,7 +43,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        getLocation()
+
+        // ask to get location here
+        setupPermissions()
+
 
         toggleButton.setOnClickListener {
             if (toggleButton.isChecked) {
@@ -94,6 +101,41 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+    private val RECORD_REQUEST_CODE = 101
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(this,
+            Manifest.permission.ACCESS_FINE_LOCATION)
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            makeRequest()
+        }
+    }
+
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            RECORD_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            RECORD_REQUEST_CODE -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    //Log.i(TAG, "Permission has been denied by user")
+                } else {
+                    getLocation()
+                    //Log.i(TAG, "Permission has been granted by user")
+                }
+            }
+        }
+    }
+
 
     private fun getLocation(){
         fusedLocationClient = getFusedLocationProviderClient(this)
