@@ -27,15 +27,16 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/enterLocation"
-        android:layout_width="246dp"
-        android:layout_height="50dp"
+        android:layout_width="283dp"
+        android:layout_height="46dp"
         android:layout_marginTop="36dp"
         android:ems="10"
-        android:hint="Enter City Name:"
+        android:gravity="center"
+        android:hint="eg. Halifax or Halifax, CA"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
@@ -44,10 +45,11 @@
     <Button
         android:id="@+id/buttonA"
         android:layout_width="188dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
         android:text="Get Weather"
         app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/enterLocation" />
 
@@ -135,7 +137,7 @@
 
     <TextView
         android:id="@+id/display2"
-        android:layout_width="150dp"
+        android:layout_width="162dp"
         android:layout_height="75dp"
         android:gravity="center_horizontal"
         android:textColor="#0A0909"
@@ -149,20 +151,47 @@
 
     <ToggleButton
         android:id="@+id/toggleButton"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
         android:text="ToggleButton"
         android:textColorHighlight="#F8110A0A"
         android:textColorLink="#FA050404"
         android:textCursorDrawable="@color/common_google_signin_btn_text_dark_focused"
-        android:textOff="Fahrenheit"
-        android:textOn="Celcius"
-        android:textSize="9sp"
+        android:textOff="°F"
+        android:textOn="°C"
+        android:textSize="14sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/display3"
+        app:layout_constraintBottom_toBottomOf="@+id/display2"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintStart_toEndOf="@+id/display2"
+        app:layout_constraintTop_toTopOf="@+id/display2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:gravity="center"
+        android:text="Enter City:"
+        app:layout_constraintBottom_toTopOf="@+id/enterLocation"
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/display2"
-        app:layout_constraintTop_toTopOf="@+id/display2" />
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/myLocationButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="9dp"
+        android:background="@android:drawable/ic_menu_mylocation"
+        android:textColor="#225E24"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/display7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
