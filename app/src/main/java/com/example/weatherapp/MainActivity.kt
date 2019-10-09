@@ -112,6 +112,8 @@ class MainActivity : AppCompatActivity() {
         if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
+        else
+            getLocation()
     }
 
     private fun makeRequest() {
@@ -124,13 +126,10 @@ class MainActivity : AppCompatActivity() {
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             RECORD_REQUEST_CODE -> {
-
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-
-                    //Log.i(TAG, "Permission has been denied by user")
-                } else {
+                    //user said no, do nothing
+                } else { //user gave permission
                     getLocation()
-                    //Log.i(TAG, "Permission has been granted by user")
                 }
             }
         }
@@ -141,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
-                // Try printing these two variables in your Toast
+                // user location coordinates
                 var longitude = location.longitude
                 var latitude = location.latitude
 
@@ -150,7 +149,6 @@ class MainActivity : AppCompatActivity() {
                 getInfo(urlString)
 
                 toggleButton.visibility= View.VISIBLE
-                //buttonA.text= latitude.toString() + "&" + longitude.toString()
             }
     }
 
@@ -170,7 +168,12 @@ class MainActivity : AppCompatActivity() {
                 var json = JSONObject(strResp)
 
                 var name= json.getString("name")
-                display.text=(name)
+
+                var sys: JSONObject = JSONObject(response).getJSONObject("sys")
+                var country= sys.getString("country")
+
+                var fullname= name + ", " + country
+                display.text=(fullname)
 
                 var main: JSONObject = JSONObject(response).getJSONObject("main")
                  tempy= ((main.getInt("temp"))- kelvin) //convert to celcius automatically at first
