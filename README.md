@@ -1,7 +1,6 @@
 # WeatherApp
 
-This app includes a text input field where the user can enter the name of a city, and a button which
-they can click that will retrieve that city's current weather from OpenWeatherAPI. It also includes a toggle button to 
+This app includes a text input field where the user can enter the name of a city, or a city and country code, after which they can click a button that will retrieve that city's current weather from OpenWeatherAPI. It also includes a toggle button to 
 switch units from Celcius to Fahrenheit.  
 
 When the app is opened it will request permission to use the users current location, and then display the 
