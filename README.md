@@ -6,6 +6,6 @@ switch units from Celcius to Fahrenheit.
 
 When the app is opened it will request permission to use the users current location, and then display the 
 weather at their location without having to search. It does this using Google play services. If location is already permitted, 
-the app will open to the current location. 
+the app will open to the current location!!
 
 
