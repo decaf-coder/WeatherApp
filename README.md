@@ -4,7 +4,7 @@ This app includes a text input field where the user can enter the name of a city
 switch units from Celcius to Fahrenheit.  
 
 When the app is opened it will request permission to use the users current location, and then display the 
-weather at their current city & country without having to search. It does this using Google play services. If location is already permitted, the app will open to the current location. 
+
 
 Both images used in this app are covered by a Creative Commons license, allowing free use and distribution
 The background image was recieved from: https://www.pexels.com/photo/road-sky-clouds-cloudy-215/
